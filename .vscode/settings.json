@@ -27,5 +27,17 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "css.lint.unknownAtRules": "ignore"
+  "css.validate": false,
+  "css.lint.unknownAtRules": "ignore",
+  "tailwindcss-intellisense.trace.server": "messages",
+  "terminal.integrated.suggest.quickSuggestions": {
+    "arguments": "on",
+    "unknown": "on",
+    "commands": "on"
+  },
+  "editor.quickSuggestions": {
+    "other": "offWhenInlineCompletions",
+    "comments": "on",
+    "strings": "on"
+  }
 }
