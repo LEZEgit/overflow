@@ -12,7 +12,7 @@ function useIsClient() {
     () => () => {},
     () => true,
     () => false
-  )
+  );
 }
 
 export function ModeToggle() {
@@ -34,7 +34,7 @@ export function ModeToggle() {
   const isDark = resolvedTheme === "dark";
 
   return (
-    <Button variant="secondary" size="icon" onClick={toggleTheme} className="relative overflow-hidden">
+    <Button variant="outline" size="icon" onClick={toggleTheme} className="rounded-2xl relative overflow-hidden">
       {/* Sun Icon */}
       <Sun
         className={cn("h-[1.2rem] w-[1.2rem] shrink-0", isDark ? "animate-spring-out absolute" : "animate-spring-in")}
