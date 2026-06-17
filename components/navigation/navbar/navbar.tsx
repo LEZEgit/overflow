@@ -5,7 +5,7 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <nav className="flex items-center justify-between background-ligh900_dark200 fixed z-50 w-full h-12 gap-5 px-4 shadow-light-300 dark:shadow-none sm:px-8">
+    <nav className="flex items-center justify-between background-light800_dark200 fixed z-50 w-full h-12 gap-5 px-4 shadow-light-300 dark:shadow-none sm:px-8">
       <Link href="/" className='flex items-center gap-1'>
         <Image 
           src="/images/site-logo.svg"
