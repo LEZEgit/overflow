@@ -34,9 +34,8 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.className} ${spaceGrotesk.variable} h-full antialiased`}
     >
-      <body className="flex">
+      <body className="h-full w-full">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-     
           {children}
         </ThemeProvider>
       </body>

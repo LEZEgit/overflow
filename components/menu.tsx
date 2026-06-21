@@ -1,8 +1,10 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { LogOutIcon } from "lucide-react";
 import MenuItem from "./MenuItem";
+import { authClient } from "@/lib/auth-client";
 
 type menuItem = {
   name: string;
@@ -40,22 +42,29 @@ type MenuItems = (typeof menuItems)[number]["name"];
 
 export const LeftMenu = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItems>(menuItems[0].name);
+  const router = useRouter();
 
-  const logout = () => {
-    console.log("Logging out...");
+  const logout = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/sign-in"); // redirect to login page
+        },
+      },
+    });
   };
 
   return (
-    <div className="background-light800_dark200 flex fixed h-[94vh] w-45 flex-col justify-between px-4 py-4">
+    <div className="background-light800_dark200 fixed flex h-[94vh] max-w-45 flex-col justify-between px-4 py-4 max-sm:hidden">
       <div className="flex flex-1 flex-col justify-start gap-4">
         {menuItems.map((item) => (
           <MenuItem onClick={() => setSelectedItem(item.name)} isSelected={selectedItem === item.name} key={item.name}>
-            <Image 
-            src={item.iconPath} 
-            width={16} 
-            height={16} 
-            alt={`${item.name} icon`} 
-           className="invert-colors mr-1.5 object-contain" 
+            <Image
+              src={item.iconPath}
+              width={16}
+              height={16}
+              alt={`${item.name} icon`}
+              className="invert-colors mr-1.5"
             />
             {item.name}
           </MenuItem>
