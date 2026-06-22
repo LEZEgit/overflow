@@ -5,6 +5,7 @@ import Image from "next/image";
 import { LogOutIcon } from "lucide-react";
 import MenuItem from "./MenuItem";
 import { authClient } from "@/lib/auth-client";
+import { setFlashToast } from "@/lib/toast";
 
 type menuItem = {
   name: string;
@@ -48,7 +49,8 @@ export const LeftMenu = () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          router.push("/sign-in"); // redirect to login page
+          setFlashToast({ toastType: "success", message: "Logout Successful" });
+          router.push("/sign-in");
         },
       },
     });
@@ -64,7 +66,7 @@ export const LeftMenu = () => {
               width={16}
               height={16}
               alt={`${item.name} icon`}
-              className="invert-colors mr-1.5"
+              className="invert-colors mr-1.5 w-auto h-auto"
             />
             {item.name}
           </MenuItem>

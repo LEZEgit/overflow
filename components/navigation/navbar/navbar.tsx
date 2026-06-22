@@ -10,11 +10,11 @@ const Navbar = () => {
       <div className="flex justify-start">
 
       <Button variant="ghost" className="hidden hover:bg-gray-600 max-sm:flex">
-        <Image src="/icons/hamburger.svg" width={16} height={16} alt="HAMBURGER" className="invert-colors" />
+        <Image src="/icons/hamburger.svg" width={16} height={16} alt="HAMBURGER" className="invert-colors w-auto h-auto" />
       </Button>
 
       <Link href="/" className="flex items-center gap-1">
-        <Image src="/images/site-logo.svg" width={23} height={23} alt="Overflow Logo" />
+        <Image src="/images/site-logo.svg" width={23} height={23} alt="Overflow Logo" className="w-auto h-auto" />
 
         <p className="h2-bold font-space-grotesk text-dark-100 dark:text-light-900 max-sm:hidden">
           <span className="text-primary-500">Over</span>flow

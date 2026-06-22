@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <main>
+    <main className="flex flex-col">
       <Navbar />
       {children}
     </main>
