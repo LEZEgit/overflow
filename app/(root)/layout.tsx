@@ -1,11 +1,18 @@
+import { LeftMenu } from "@/components/menu";
 import Navbar from "@/components/navigation/navbar/navbar";
 import React, { ReactNode } from "react";
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="flex flex-col">
+    <main>
       <Navbar />
-      {children}
+      <div className="absolute top-12">
+        <LeftMenu />
+        <div className="ml-49">
+
+        {children}
+        </div>
+      </div>
     </main>
   );
 };

@@ -7,11 +7,43 @@ import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import { clearFlashToast, setFlashToast } from "@/lib/toast";
 import { toast } from "sonner";
+import ROUTES from "@/constants/routes";
 
 const SocialAuthForm = () => {
   const [isLoading, setIsLoading] = useState<string>("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+
+  /**
+   * another way to do the handleSignin
+   * const handleSignin = async (provider:"github" | "google") => {
+      rather than using the try catch, we can use the in built callback handlers provided by better auth
+      like 
+      await authClient.signIn.social(
+      {
+        provider, 
+        callbackURL: ROUTES.HOME
+      }, 
+      {
+        onError: (error) => {
+          clearFlashToast();
+          toast.error(error.error.message || "Failed to sign in", {
+            style: {
+              "--border-radius": "calc(var(--radius)  + 8px)",
+            } as React.CSSProperties,
+            duration: 4000,
+          });
+          router.push(ROUTES.SIGN_IN);
+        }, 
+        onSuccess: () => {
+          setFlashToast({ toastType: "success", message: "Welcome!", description: "Successfully authenticated" });
+          
+        }
+      }
+      )
+   }
+   */
 
   const handleSignin = async (provider: "github" | "google") => {
     setIsLoading(provider);
@@ -19,7 +51,7 @@ const SocialAuthForm = () => {
     try {
       // I set the flash toast optimistically before the `await` — if `signIn.social` throws (caught below), the user never navigates away, so that stale flash would incorrectly fire on some future navigation. Clearing it in the catch block:
       setFlashToast({ toastType: "success", message: "Welcome!", description: "Successfully authenticated" });
-      await authClient.signIn.social({ provider, callbackURL: "/" });
+      await authClient.signIn.social({ provider, callbackURL: ROUTES.HOME });
     } catch (err) {
       clearFlashToast();
       console.log("Error while signing in: ", err);

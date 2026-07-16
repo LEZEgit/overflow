@@ -11,7 +11,7 @@ const AuthToast = () => {
       if (flashToast) {
         toast[flashToast.toastType](flashToast.message, {
           description: flashToast.description,
-          position: "top-right",
+          position: "bottom-right",
         });
       }
     });

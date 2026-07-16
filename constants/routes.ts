@@ -9,6 +9,7 @@ const ROUTES = {
     HOME: '/',
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
+    PROFILE: '/user-profile',
 };
 
 export default ROUTES;
