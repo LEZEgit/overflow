@@ -22,7 +22,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ children, href }) => {
       fetchOptions: {
         onSuccess: () => {
           setFlashToast({ toastType: "success", message: "Logout Successful" });
+          // push then refresh clears the stale UI states created for the user session
           router.push(ROUTES.SIGN_IN);
+          router.refresh();
         },
       },
     });
@@ -49,7 +51,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ children, href }) => {
       )}
     >
       {href ? (
-        <Link href={href} aria-current={isSelected ? "page" : undefined}>
+        <Link href={href !== "logout" ? href : ""} aria-current={isSelected ? "page" : undefined}>
           {children}
         </Link>
       ) : (
@@ -60,5 +62,3 @@ const MenuItem: React.FC<MenuItemProps> = ({ children, href }) => {
 };
 
 export default MenuItem;
-
-

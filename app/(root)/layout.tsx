@@ -8,10 +8,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
       <Navbar />
       <div className="absolute top-12">
         <LeftMenu />
-        <div className="ml-49">
-
-        {children}
-        </div>
+        <div className="ml-49">{children}</div>
       </div>
     </main>
   );

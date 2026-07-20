@@ -36,10 +36,10 @@ export default function RootLayout({
       className={`${inter.className} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="h-full w-full">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Toaster />
-          {children}
-        </ThemeProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <Toaster />
+            {children}
+          </ThemeProvider>
       </body>
     </html>
   );

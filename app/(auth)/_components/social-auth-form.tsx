@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import { clearFlashToast, setFlashToast } from "@/lib/toast";
@@ -55,20 +55,20 @@ const SocialAuthForm = () => {
     } catch (err) {
       clearFlashToast();
       console.log("Error while signing in: ", err);
-      toast.error(`Error while authenticating with ${provider}`,{
+      toast.error(`Error while authenticating with ${provider}`, {
         position: "top-right",
       });
       const errorMessage = err instanceof Error ? err.message : "Authentication failed";
       setError(errorMessage);
       setIsLoading("");
-      router.push("/sign-in");
+      router.push("/login");
     }
   };
 
   const buttonClasses =
     "background-dark400_light900 body-medium text-dark200_light800 min-h-12 flex-1 rounded-xl hover:shadow-md hover:shadow-orange-500/40 dark:hover:shadow-orange-700/30";
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2">
+    <div className="grid grid-cols-2 gap-2">
       <Button className={buttonClasses} onClick={() => handleSignin("github")} disabled={isLoading !== ""}>
         {isLoading === "github" ? (
           <span>Loading...</span>
@@ -79,7 +79,7 @@ const SocialAuthForm = () => {
               width={20}
               height={20}
               alt="github-logo"
-              className="invert-colors mr-1.5 object-contain w-auto h-auto"
+              className="invert-colors mr-1.5 h-auto w-auto object-contain"
             />
             <span>Log in with GitHub</span>
           </>
@@ -91,7 +91,13 @@ const SocialAuthForm = () => {
           <span>Loading...</span>
         ) : (
           <>
-            <Image src="/icons/google.svg" width={20} height={20} alt="google-logo" className="mr-1.5 object-contain w-auto h-auto" />
+            <Image
+              src="/icons/google.svg"
+              width={20}
+              height={20}
+              alt="google-logo"
+              className="mr-1.5 h-auto w-auto object-contain"
+            />
             <span>Log in with Google</span>
           </>
         )}
