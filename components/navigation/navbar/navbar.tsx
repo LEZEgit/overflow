@@ -6,7 +6,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <nav className="background-light800_dark200 shadow-light-300 fixed z-50 flex h-12 w-full items-center justify-between gap-5 px-4 sm:px-8 dark:shadow-none">
+    <nav className="background-light800_dark200 shadow-light-300 fixed z-50 flex h-12 w-full items-center justify-between gap-5 px-2 sm:px-8 dark:shadow-none">
       <div className="flex justify-start">
 
       <Button variant="ghost" className="hidden hover:bg-gray-600 max-sm:flex">

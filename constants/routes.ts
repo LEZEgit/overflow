@@ -10,6 +10,11 @@ const ROUTES = {
     SIGN_IN: '/sign-in',
     SIGN_UP: '/sign-up',
     PROFILE: '/user-profile',
+    COLLECTION: '/collection',
+    FIND_JOBS: '/find-jobs',
+    TAGS: '/tags',
+    COMMUNITIES: '/communities',
+    ASK_A_QUESTION: '/ask-a-question',
 };
 
 export default ROUTES;
