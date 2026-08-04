@@ -14,13 +14,9 @@ import { LoadingSwap } from "@/components/ui/loading-swap";
 import { useRouter } from "next/navigation";
 import { clearFlashToast, setFlashToast } from "@/lib/toast";
 import ROUTES from "@/constants/routes";
+import { signUpSchema } from "@/lib/validations";
 
 
-const signUpSchema = z.object({
-  name: z.string().min(1, "Username can't be empty."),
-  email: z.email().min(1, "Email can't be empty."),
-  password: z.string().min(6, "Password is too short."),
-});
 
 type SignUpForm = z.infer<typeof signUpSchema>;
 
@@ -37,6 +33,7 @@ export function SignUpTab() {
   const router = useRouter();
 
   async function handleSignUp(data: SignUpForm) {
+    console.log("Handling Sign Up!");
     toast.info("Creating new account", {
       style: {
         "--border-radius": "calc(var(--radius)  + 8px)",
@@ -46,32 +43,53 @@ export function SignUpTab() {
     try {
       setFlashToast({ toastType: "success", message: "Welcome!", description: "Account created" });
       await authClient.signUp.email({
-      ...data,
-      callbackURL: ROUTES.HOME,
-    });
+        ...data,
+        callbackURL: ROUTES.HOME,
+      },
+      {
+        onSuccess: ()=> {
+          router.push(ROUTES.HOME);
+        }
+      }
+    );
     } catch (err) {
       clearFlashToast();
       toast.error(`Error while creating account.`, {
         position: "top-right",
       });
       const errorMessage = err instanceof Error ? err.message : "Authentication failed";
-      console.log("Error while signing uo: ", errorMessage);
+      console.log("Error while signing up: ", errorMessage);
       router.push("/login");
     }
-
-    
   }
 
   const { isSubmitting } = form.formState;
 
   return (
     <form id="signup-form" onSubmit={form.handleSubmit(handleSignUp)}>
-      <FieldGroup>
+      <FieldGroup className="flex gap-2">
+        <Controller
+          name="name"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid} className="flex gap-1">
+              <FieldLabel htmlFor="signup-form-name">Username</FieldLabel>
+              <Input
+                {...field}
+                id="signup-form-name"
+                aria-invalid={fieldState.invalid}
+                placeholder="johnny"
+                autoComplete="username"
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
         <Controller
           name="email"
           control={form.control}
           render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
+            <Field data-invalid={fieldState.invalid} className="flex gap-1">
               <FieldLabel htmlFor="signup-form-email">Email</FieldLabel>
               <Input
                 {...field}
@@ -88,7 +106,7 @@ export function SignUpTab() {
           name="password"
           control={form.control}
           render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
+            <Field data-invalid={fieldState.invalid} className="flex gap-1">
               <FieldLabel htmlFor="signup-form-password">
                 Password
                 <span className="text-muted-foreground text-xs">(must be atleast 6 characters)</span>
@@ -105,7 +123,7 @@ export function SignUpTab() {
           )}
         />
       </FieldGroup>
-      <Button type="submit" size="lg" disabled={isSubmitting} className="mt-8 w-full">
+      <Button type="submit" disabled={isSubmitting} className="primary-gradient paragraph-medium min-h-12 rounded-2 font-inter text-light-900! mt-6 w-full">
         <LoadingSwap isLoading={isSubmitting}>Create Account</LoadingSwap>
       </Button>
     </form>
